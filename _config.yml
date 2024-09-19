@@ -87,6 +87,13 @@ footer:
       icon: "fab fa-fw fa-instagram"
       url: "https://instagram.com/"
 
+collections:
+  posts:
+    output: true
+  podcasts:
+    output: true
+    permalink: /podcasts/:title/
+
 defaults:
   # _posts
   - scope:
@@ -114,12 +121,7 @@ defaults:
       layout: podcast
       categories: podcast
 
-      collections:
-  posts:
-    output: true
-  podcasts:
-    output: true
-    permalink: /podcasts/:title/
+
 
 
 category_archive:
