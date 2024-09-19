@@ -32,5 +32,5 @@ fetch('https://anchor.fm/s/f887d5f4/podcast/rss') // Replace with your actual RS
    })
    .catch(error => {
        console.error('Error fetching the RSS feed:', error);
-       document.getElementById('podcast-episodes').innerText = 'Failed to load episodes.';
+       document.getElementById('podcast-episodes').innerText = 'Failed to load episodes..';
    });
