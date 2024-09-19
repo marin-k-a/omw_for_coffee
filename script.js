@@ -1,38 +1,38 @@
-let episodes = []; // Array to store fetched episodes
+let episodes = []; // Array to store all fetched episodes
 let currentPage = 1;
 const episodesPerPage = 5; // Number of episodes to display per page
 
 // Fetch and parse the RSS feed
 fetch('https://anchor.fm/s/f887d5f4/podcast/rss') // Replace with your actual RSS feed URL
-  .then(response => response.text())
-  .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
-  .then(data => {
-      const items = data.querySelectorAll('item');
+    .then(response => response.text())
+    .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
+    .then(data => {
+        const items = data.querySelectorAll('item');
+        
+        // Store all episodes
+        items.forEach(item => {
+            const title = item.querySelector('title').textContent;
+            const description = item.querySelector('description') ? item.querySelector('description').textContent : 'No description available';
+            const enclosure = item.querySelector('enclosure');
+            const audioUrl = enclosure ? enclosure.getAttribute('url') : '';
 
-      // Extract data from each item and store it in the episodes array
-      items.forEach(item => {
-          const title = item.querySelector('title').textContent;
-          const description = item.querySelector('description') ? item.querySelector('description').textContent : 'No description available';
-          const enclosure = item.querySelector('enclosure');
-          const audioUrl = enclosure ? enclosure.getAttribute('url') : '';
+            if (audioUrl) {
+                episodes.push({
+                    title: title,
+                    description: description,
+                    audioUrl: audioUrl
+                });
+            }
+        });
 
-          if (audioUrl) {
-              episodes.push({
-                  title: title,
-                  description: description,
-                  audioUrl: audioUrl
-              });
-          }
-      });
-
-      // Initial rendering of the first page
-      displayEpisodes();
-      updatePaginationControls();
-  })
-  .catch(error => {
-      console.error('Error fetching the RSS feed:', error);
-      document.getElementById('podcast-episodes').innerText = 'Failed to load episodes.';
-  });
+        // Initial rendering of the first page
+        displayEpisodes();
+        updatePaginationControls();
+    })
+    .catch(error => {
+        console.error('Error fetching the RSS feed:', error);
+        document.getElementById('podcast-episodes').innerText = 'Failed to load episodes.';
+    });
 
 // Function to display episodes for the current page
 function displayEpisodes() {
