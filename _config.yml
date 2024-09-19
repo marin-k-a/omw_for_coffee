@@ -106,6 +106,21 @@ defaults:
     values:
       layout: single
       author_profile: true
+  # _podcasts
+  - scope:
+      path: ""
+      type: podcasts
+    values:
+      layout: podcast
+      categories: podcast
+
+      collections:
+  posts:
+    output: true
+  podcasts:
+    output: true
+    permalink: /podcasts/:title/
+
 
 category_archive:
   type: liquid
