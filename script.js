@@ -4,11 +4,18 @@ const episodesPerPage = 5; // Number of episodes to display per page
 
 // Fetch and parse the RSS feed
 fetch('https://anchor.fm/s/f887d5f4/podcast/rss') // Replace with your actual RSS feed URL
-    .then(response => response.text())
-    .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
+    .then(response => {
+        console.log('Fetch response status:', response.status);
+        return response.text();
+    })
+    .then(str => {
+        console.log('RSS Feed fetched successfully');
+        return new window.DOMParser().parseFromString(str, "text/xml");
+    })
     .then(data => {
         const items = data.querySelectorAll('item');
-        
+        console.log('Number of items found:', items.length);
+
         // Store all episodes
         items.forEach(item => {
             const title = item.querySelector('title').textContent;
@@ -24,6 +31,8 @@ fetch('https://anchor.fm/s/f887d5f4/podcast/rss') // Replace with your actual RS
                 });
             }
         });
+
+        console.log('Episodes array after parsing:', episodes);
 
         // Initial rendering of the first page
         displayEpisodes();
@@ -42,6 +51,8 @@ function displayEpisodes() {
     // Calculate start and end indices for the current page
     const startIndex = (currentPage - 1) * episodesPerPage;
     const endIndex = Math.min(startIndex + episodesPerPage, episodes.length);
+
+    console.log(`Displaying episodes ${startIndex} to ${endIndex}`);
 
     // Display episodes for the current page
     for (let i = startIndex; i < endIndex; i++) {
@@ -68,6 +79,8 @@ function updatePaginationControls() {
     // Enable/disable pagination buttons
     document.getElementById('prev').disabled = currentPage === 1;
     document.getElementById('next').disabled = currentPage === totalPages;
+
+    console.log('Updated pagination controls');
 }
 
 // Event listeners for pagination buttons
