@@ -24,20 +24,16 @@ URI.open(rss_url) do |rss|
 
     # Generate the markdown content
     content = <<~MARKDOWN
-    ---
-    layout: post
-    title: "#{item.title}"
-    date: #{item.pubDate.strftime('%Y-%m-%d %H:%M:%S %z')}
-    categories: podcast
-    ---
+      ---
+      layout: podcast
+      title: "#{item.title}"
+      date: #{item.pubDate.strftime('%Y-%m-%d %H:%M:%S %z')}
+      categories: podcast
+      audio_url: "#{item.enclosure.url}"
+      ---
 
-    #{item.description}
-
-    <audio controls>
-      <source src="#{item.enclosure.url}" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
-    MARKDOWN
+      #{item.description}
+      MARKDOWN
 
     # Write the markdown file
     File.open(file_name, 'w') do |file|
