@@ -1,4 +1,4 @@
-let episodes = []; // To store all fetched episodes
+let episodes = []; // Array to store fetched episodes
 let currentPage = 1;
 const episodesPerPage = 5; // Number of episodes to display per page
 
@@ -8,6 +8,8 @@ fetch('https://anchor.fm/s/f887d5f4/podcast/rss') // Replace with your actual RS
   .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
   .then(data => {
       const items = data.querySelectorAll('item');
+
+      // Extract data from each item and store it in the episodes array
       items.forEach(item => {
           const title = item.querySelector('title').textContent;
           const description = item.querySelector('description') ? item.querySelector('description').textContent : 'No description available';
@@ -15,7 +17,6 @@ fetch('https://anchor.fm/s/f887d5f4/podcast/rss') // Replace with your actual RS
           const audioUrl = enclosure ? enclosure.getAttribute('url') : '';
 
           if (audioUrl) {
-              // Store episode data
               episodes.push({
                   title: title,
                   description: description,
@@ -38,11 +39,11 @@ function displayEpisodes() {
     const episodesContainer = document.getElementById('podcast-episodes');
     episodesContainer.innerHTML = ''; // Clear previous episodes
 
-    // Calculate the start and end indices for the current page
+    // Calculate start and end indices for the current page
     const startIndex = (currentPage - 1) * episodesPerPage;
     const endIndex = Math.min(startIndex + episodesPerPage, episodes.length);
 
-    // Loop through and display episodes for the current page
+    // Display episodes for the current page
     for (let i = startIndex; i < endIndex; i++) {
         const episode = episodes[i];
         const episodeDiv = document.createElement('div');
@@ -59,7 +60,7 @@ function displayEpisodes() {
     }
 }
 
-// Function to update the pagination controls
+// Function to update pagination controls
 function updatePaginationControls() {
     const totalPages = Math.ceil(episodes.length / episodesPerPage);
     document.getElementById('page-info').innerText = `Page ${currentPage} of ${totalPages}`;
