@@ -85,7 +85,8 @@ const episodesLoop = allEpisodes.slice(0, count).map((episode) => {
           </h2>
 
           <p class="text-sm text-neutral-600 dark:text-neutral-400">
-            {episode.description || ""}
+            <!-- {episode.description || ""} -->
+            <Fragment set:html={episode.description || null}>
           </p>
           
         </div>
