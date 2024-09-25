@@ -79,7 +79,7 @@ const episodesLoop = allEpisodes.slice(0, count).map((episode) => {
           </svg>
         </h2>
 
-        <p class="text-sm text-neutral-600 dark:text-neutral-400" set:html={episode.description || ""}></p>
+        <div class="text-sm text-neutral-600 dark:text-neutral-400" set:html={episode.description || ""}></div>
       </div>
     </div>
   ))}
