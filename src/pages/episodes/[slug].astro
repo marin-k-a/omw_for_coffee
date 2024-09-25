@@ -61,7 +61,7 @@ const episode = Astro.props.episode.data as EpisodeData;
       </div>
 
 
-    <div class="w-full max-w-2xl mx-auto">
+    <div class="w-full max-w-2xl mb-5 mx-auto">
       <!-- Publication Date -->
       <div class="mt-2.5 text-xs font-medium text-neutral-800 dark:text-neutral-300 text-left">
         {new Date(episode.pubdate || "").toLocaleDateString('uk-UA', {
@@ -72,7 +72,7 @@ const episode = Astro.props.episode.data as EpisodeData;
       </div>
       
       <!-- Episode Title -->
-      <h1 class="text-3xl font-bold leading-tight tracking-tighter text-left md:mb-5 md:text-4xl dark:text-neutral-100 lg:text-5xl md:leading-none">
+      <h1 class="text-3xl font-bold leading-tight text-left md:text-4xl dark:text-neutral-100 lg:text-5xl md:leading-none">
         {episode.title || "Untitled Episode"}
       </h1>
     </div>
@@ -81,7 +81,7 @@ const episode = Astro.props.episode.data as EpisodeData;
 
 
   <article
-      class="w-full max-w-2xl mx-auto mb-20 prose-sm prose px-7 lg:px-0 lg:prose-lg dark:prose-invert"
+      class="w-full max-w-2xl mx-auto mb-5 prose-sm prose px-7 lg:px-0 lg:prose-lg dark:prose-invert"
     >
 <div class="flex flex-col items-center md:flex-row">
   <div class="relative w-full md:w-1/2">
@@ -94,33 +94,11 @@ const episode = Astro.props.episode.data as EpisodeData;
     </audio>
   ))}
 
-            <!-- <p class="text-sm text-neutral-600 dark:text-neutral-400">
-            <span>{episode.description}</span>
-          </p> -->
 
     <div set:html={episode.description}></div>
 
-  <!-- Episode Creator 
-  <p><strong>Created by:</strong> {episode['dc:creator'] || episode.author || "Unknown"}</p>
 
-  Episode Metadata (Season, Episode, Duration, and Publication Date) 
-  <p>
-    <strong>Season:</strong> {episode['itunes:season']} |
-    <strong>Episode:</strong> {episode['itunes:episode']} |
-    <strong>Duration:</strong> {episode['itunes:duration']} |
-    <strong>Published:</strong> {new Date(episode.pubdate || "").toLocaleDateString()}
-  </p> -->
-
-  
-
-  <!-- Link to the original episode page 
-  <p>
-    <a href={episode.link} target="_blank" rel="noopener noreferrer">
-      Listen on Spotify
-    </a>
-  </p> -->
-
-  <div class="flex space-x-4 items-center">
+  <div class="flex space-x-4 items-center lg:justify-center">
           <a href="https://podcasts.apple.com/ua/podcast/дорогою-по-каву/id1756142317" target="_blank" rel="noopener noreferrer" data-encore-id="textLink" class="Link-sc-k8gsk-0 drANYv">
             <img src="/assets/images/social/apple_podcasts.png" 
                  srcset="/assets/images/social/apple_podcasts.png 1x, /assets/images/social/apple_podcasts@2x.png 2x" 
