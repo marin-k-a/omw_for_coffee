@@ -1,0 +1,144 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/main.astro";
+import { generateSlug } from "../../utils/slugHelper"; // Import the slug helper
+
+type EpisodeData = {
+  title: string | null;
+  description: string | null;
+  summary: string | null;
+  date: Date | null;
+  pubdate: Date | null; // You can keep this as Date for consistency
+  link: string | null;
+  origlink: string | null;
+  author: string | null;
+  enclosures?: Array<{
+    url: string;
+    type: string;
+  }>;
+  image?: {
+    url: string;
+  }; // Changed from "itunes:image" to match actual data structure
+  "itunes:explicit"?: string;
+  "itunes:duration"?: string;
+  "itunes:season"?: number;
+  "itunes:episode"?: number;
+  "itunes:episodeType"?: string;
+  "dc:creator"?: string;
+  meta?: {
+    image?: {
+      url: string;
+      title?: string;
+    };
+  };
+};
+
+export async function getStaticPaths() {
+  const episodes = await getCollection("podcasts");
+  return episodes.map((episode) => ({
+    params: { slug: generateSlug(episode.data.link, episode.data.title, episode.id) }, // Generate slug
+    props: { episode },
+  }));
+}
+
+const episode = Astro.props.episode.data as EpisodeData;
+---
+
+<Layout title={episode.title}>
+  <main
+    class="relative z-30 max-w-4xl pb-1 mx-auto mt-10 bg-white dark:bg-neutral-950 md:rounded-t-md text-neutral-900"
+  >
+    <div
+      class="relative flex flex-col px-5 pt-6 border-t border-b-0 md:border-r md:border-l md:pt-20 lg:px-0 justify-stretch md:rounded-t-2xl border-neutral-200 dark:border-neutral-800"
+    >
+      <div
+        class="absolute top-0 left-0 hidden w-px h-full mt-1 -translate-x-px md:block bg-gradient-to-b from-transparent to-white dark:to-neutral-950"
+      >
+      </div>
+      <div
+        class="absolute top-0 right-0 hidden w-px h-full mt-1 translate-x-px md:block bg-gradient-to-b from-transparent to-white dark:to-neutral-950"
+      >
+      </div>
+
+
+    <div class="w-full max-w-2xl mx-auto">
+      <!-- Publication Date -->
+      <div class="mt-2.5 text-xs font-medium text-neutral-800 dark:text-neutral-300 text-left">
+        {new Date(episode.pubdate || "").toLocaleDateString('uk-UA', {
+          day: '2-digit',
+          month: 'long', 
+          year: 'numeric',
+        })}
+      </div>
+      
+      <!-- Episode Title -->
+      <h1 class="text-3xl font-bold leading-tight tracking-tighter text-left md:mb-12 md:text-4xl dark:text-neutral-100 lg:text-5xl md:leading-none">
+        {episode.title || "Untitled Episode"}
+      </h1>
+    </div>
+
+  
+
+
+  <article
+      class="w-full max-w-2xl mx-auto mb-20 prose-sm prose px-7 lg:px-0 lg:prose-lg dark:prose-invert"
+    >
+
+
+  <!-- Episode Cover Image -->
+{episode?.image?.url ? (
+  <img
+    src={episode.image.url}
+    alt={`Cover image for ${episode.title}`}
+    class="episode-cover"
+  />
+) : (
+  episode?.meta?.image?.url && (
+    <img
+      src={episode.meta.image.url}
+      alt={`Cover image for ${episode.meta?.image?.title || episode.title}`}
+      class="podcast-cover"
+    />
+  )
+)}
+
+          <p class="text-sm text-neutral-600 dark:text-neutral-400">
+            <span>{episode.description}</span>
+          </p>
+
+  <!-- Episode Creator 
+  <p><strong>Created by:</strong> {episode['dc:creator'] || episode.author || "Unknown"}</p>
+
+  Episode Metadata (Season, Episode, Duration, and Publication Date) 
+  <p>
+    <strong>Season:</strong> {episode['itunes:season']} |
+    <strong>Episode:</strong> {episode['itunes:episode']} |
+    <strong>Duration:</strong> {episode['itunes:duration']} |
+    <strong>Published:</strong> {new Date(episode.pubdate || "").toLocaleDateString()}
+  </p> -->
+
+  <!-- Episode Audio Player -->
+  {episode.enclosures?.map((enclosure) => (
+    <audio controls>
+      <source src={enclosure.url} type={enclosure.type} />
+      Your browser does not support the audio element.
+    </audio>
+  ))}
+
+  <!-- Link to the original episode page -->
+  <p>
+    <a href={episode.link} target="_blank" rel="noopener noreferrer">
+      Listen on Spotify
+    </a>
+  </p>
+
+  <!-- Additional Information -->
+  <p><strong>Episode Type:</strong> {episode['itunes:episodeType'] || "Unknown"}</p>
+
+  <!-- Explicit Content Warning -->
+  <p><strong>Explicit Content:</strong> {episode['itunes:explicit'] || "No"}</p>
+    </div>
+
+    </article>
+  </main>
+</Layout>
