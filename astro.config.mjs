@@ -8,5 +8,6 @@ export default defineConfig({
 	integrations: [tailwind()],
 	experimental: {
     contentLayer: true,
+    base: '/omw_for_coffee/',
   },
 });
