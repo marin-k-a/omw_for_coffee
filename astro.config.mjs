@@ -5,7 +5,8 @@ import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
 export default defineConfig({
-	base: '/omw_for_coffee/',
+	base: '/',
+	outDir: 'docs',
 	integrations: [tailwind()],
 	experimental: {
     contentLayer: true,
