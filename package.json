@@ -9,7 +9,8 @@
 		"preview": "astro preview",
 		"astro": "astro",
 		"check": "biome check --apply-unsafe .",
-		"deploy": "gh-pages -d dist"
+		"deploy": "gh-pages -d dist",
+		"check": "biome check --apply-unsafe ."
 	},
 	"devDependencies": {
 		"@astrojs/check": "^0.6.0",
