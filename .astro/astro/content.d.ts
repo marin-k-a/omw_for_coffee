@@ -200,7 +200,9 @@ declare module 'astro:content' {
         categories: string[];
     };
 };
-  rendered?: RenderedContent 
+  rendered?: RenderedContent;
+  filePath?: string;
+  body?: string 
 }>;
 "releases": Record<string, {
   id: string;
@@ -250,7 +252,9 @@ declare module 'astro:content' {
         categories: string[];
     };
 };
-  rendered?: RenderedContent 
+  rendered?: RenderedContent;
+  filePath?: string;
+  body?: string 
 }>;
 
 	};
