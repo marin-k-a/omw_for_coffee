@@ -1,0 +1,318 @@
+{
+  "$ref": "#/definitions/podcasts",
+  "definitions": {
+    "podcasts": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "summary": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "date": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "integer",
+                  "format": "unix-time"
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "pubdate": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "integer",
+                  "format": "unix-time"
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "link": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "origlink": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "author": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "guid": {
+          "type": "string"
+        },
+        "comments": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "image": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "enclosures": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "length": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "meta": {
+          "type": "object",
+          "properties": {
+            "#ns": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            },
+            "#type": {
+              "type": "string",
+              "enum": [
+                "atom",
+                "rss",
+                "rdf"
+              ]
+            },
+            "#version": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "description": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "date": {
+              "anyOf": [
+                {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    {
+                      "type": "integer",
+                      "format": "unix-time"
+                    }
+                  ]
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "pubdate": {
+              "anyOf": [
+                {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    {
+                      "type": "integer",
+                      "format": "unix-time"
+                    }
+                  ]
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "link": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "xmlurl": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "author": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "language": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "image": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/podcasts/properties/image"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "favicon": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "copyright": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "generator": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "categories": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "#ns",
+            "#type",
+            "#version",
+            "title",
+            "description",
+            "date",
+            "pubdate",
+            "link",
+            "xmlurl",
+            "author",
+            "language",
+            "image",
+            "favicon",
+            "copyright",
+            "generator",
+            "categories"
+          ],
+          "additionalProperties": false
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "description",
+        "summary",
+        "date",
+        "pubdate",
+        "link",
+        "origlink",
+        "author",
+        "guid",
+        "comments",
+        "image",
+        "categories",
+        "enclosures",
+        "meta"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

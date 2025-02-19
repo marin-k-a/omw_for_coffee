@@ -8,7 +8,7 @@ export default defineConfig({
 	base: '/',
 	outDir: 'docs',
 	integrations: [tailwind()],
-	experimental: {
-    contentLayer: true,
-  },
+//	experimental: {
+//    contentLayer: true,
+//  },
 });
